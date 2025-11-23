@@ -1,8 +1,20 @@
-[gd_scene load_steps=20 format=4 uid="uid://c8qi1bwxkr7hd"]
+[gd_scene load_steps=25 format=4 uid="uid://c8qi1bwxkr7hd"]
 
 [ext_resource type="Script" uid="uid://cxopkguwpcegj" path="res://skeleton_3d.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://brofl7tqlhm5j" path="res://godot_ik.tscn" id="2_1bvp3"]
 [ext_resource type="Script" uid="uid://df7j0ab7lmhoy" path="res://addons/libik/script/pole_bone_constraint.gd" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://s820a7rmfvss" path="res://assets/test_arm.glb" id="4_1bvp3"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_h2yge"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h2yge"]
+
+[sub_resource type="Sky" id="Sky_1bvp3"]
+sky_material = SubResource("ProceduralSkyMaterial_h2yge")
+
+[sub_resource type="Environment" id="Environment_lquwl"]
+background_mode = 2
+sky = SubResource("Sky_1bvp3")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_plc31"]
 resource_name = "Material.002"
@@ -256,6 +268,18 @@ albedo_texture = SubResource("CompressedTexture2D_rwmix")
 
 [node name="Main" type="Node3D"]
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.884346, -0.129225, 0.448591, 0.0153477, 0.968453, 0.248724, -0.466581, -0.213073, 0.85843, 0.500893, 1.23469, -3.77463)
+fov = 30.0
+
+[node name="Ball" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1.24031, 0.0110182, -5.83064)
+mesh = SubResource("SphereMesh_h2yge")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lquwl")
+
 [node name="SkeletonWolf" type="Skeleton3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.77161, 0, -6.64895)
 bones/0/name = "root"
@@ -366,49 +390,11 @@ bones/14/scale = Vector3(1, 0.999999, 1)
 script = ExtResource("2_0xm2m")
 
 [node name="MeshWolf" type="MeshInstance3D" parent="SkeletonWolf"]
+visible = false
 mesh = SubResource("ArrayMesh_4x6ku")
 skin = SubResource("Skin_m4evq")
 
-[node name="GodotIK" type="GodotIK" parent="SkeletonWolf"]
-iteration_count = 1
-
-[node name="EffectorFL" type="GodotIKEffector" parent="SkeletonWolf/GodotIK"]
-bone_name = "ffoot.L"
-bone_idx = 3
-chain_length = 3
-transform = Transform3D(0.996464, 0.0839959, 0.00210406, 0.0755277, -0.88447, -0.460444, -0.0368144, 0.458975, -0.887686, -0.59416, 0.228332, -6.31295)
-top_level = true
-
-[node name="PoleBoneConstraint" type="GodotIKConstraint" parent="SkeletonWolf/GodotIK/EffectorFL"]
-bone_idx = 2
-script = ExtResource("2_h2yge")
-pole_direction = Vector3(0, 0, 1)
-forward = false
-metadata/_custom_type_script = "uid://df7j0ab7lmhoy"
-
-[node name="EffectorFR" type="GodotIKEffector" parent="SkeletonWolf/GodotIK"]
-bone_name = "ffoot.R"
-bone_idx = 8
-chain_length = 3
-transform = Transform3D(0.996464, -0.0839959, -0.00210406, -0.0755277, -0.88447, -0.460444, 0.0368144, 0.458975, -0.887686, -0.17745, 0.228332, 0.336)
-
-[node name="PoleBoneConstraint" type="GodotIKConstraint" parent="SkeletonWolf/GodotIK/EffectorFR"]
-bone_idx = 7
-script = ExtResource("2_h2yge")
-active = false
-pole_direction = Vector3(0, 0, 1)
-forward = false
-metadata/_custom_type_script = "uid://df7j0ab7lmhoy"
-
-[node name="EffectorRL" type="GodotIKEffector" parent="SkeletonWolf/GodotIK"]
-bone_name = "rfoot.L"
-bone_idx = 10
-transform = Transform3D(0.980905, -0.00950776, 0.194255, -0.0203941, -0.998326, 0.0541199, 0.193414, -0.0570489, -0.979455, 0.191384, 0.268114, -0.742832)
-
-[node name="EffectorRR" type="GodotIKEffector" parent="SkeletonWolf/GodotIK"]
-bone_name = "rfoot.R"
-bone_idx = 12
-transform = Transform3D(0.980905, 0.00950776, -0.194255, 0.0203941, -0.998326, 0.0541199, -0.193414, -0.0570489, -0.979455, -0.191384, 0.268114, -0.742832)
+[node name="GodotIK" parent="SkeletonWolf" instance=ExtResource("2_1bvp3")]
 
 [node name="SkeletonSimplest" type="Skeleton3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.398928, 0, -6.55336)
@@ -574,7 +560,7 @@ transform_mode = 1
 transform = Transform3D(0.0446345, -0.982379, -0.181493, 0.998994, 0.0446909, 0.00378087, 0.00439685, -0.18148, 0.983385, -0.8571, -0.00602621, 0.00448179)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="SimpleArmRig/GodotIK/GodotIKEffectorL"]
-transform = Transform3D(0.954569, 0.282225, 0.0956423, -0.296988, 0.927324, 0.227747, -0.0244156, -0.245805, 0.969011, -5.96046e-08, 0, 0)
+transform = Transform3D(0.9545687, 0.2822251, 0.09564212, -0.29698867, 0.9273229, 0.22774795, -0.02441509, -0.24580513, 0.9690116, -5.9604645e-08, 0, 0)
 bone_name = "Fingers.L"
 bone_idx = 5
 use_external_skeleton = true
@@ -619,4 +605,5 @@ chain_length = 4
 influence = 0.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.688332, 1.56202, 2.29991)
 
+[editable path="SkeletonWolf/GodotIK"]
 [editable path="test_arm"]

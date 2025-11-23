@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://brofl7tqlhm5j"]
+
+[ext_resource type="Script" uid="uid://df7j0ab7lmhoy" path="res://addons/libik/script/pole_bone_constraint.gd" id="1_as837"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_h2yge"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
+albedo_color = Color(0, 0.0901961, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="GodotIK" type="GodotIK"]
+iteration_count = 1
+
+[node name="EffectorFL" type="GodotIKEffector" parent="."]
+bone_name = "ffoot.L"
+bone_idx = 3
+chain_length = 3
+unique_name_in_owner = true
+transform = Transform3D(0.996464, 0.083996, 0.00210406, 0.0755278, -0.88447, -0.460444, -0.0368145, 0.458975, -0.887686, -0.623007, -0.161639, -6.35027)
+top_level = true
+
+[node name="PoleBoneConstraint" type="GodotIKConstraint" parent="EffectorFL"]
+bone_idx = 2
+script = ExtResource("1_as837")
+pole_direction = Vector3(0, 0, 1)
+forward = false
+metadata/_custom_type_script = "uid://df7j0ab7lmhoy"
+
+[node name="Ball" type="MeshInstance3D" parent="EffectorFL"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("SphereMesh_h2yge")
+surface_material_override/0 = SubResource("StandardMaterial3D_h2yge")
+
+[node name="EffectorFR" type="GodotIKEffector" parent="."]
+bone_name = "ffoot.R"
+bone_idx = 8
+chain_length = 3
+unique_name_in_owner = true
+transform = Transform3D(0.996464, -0.083996, -0.00210406, -0.0755278, -0.88447, -0.460444, 0.0368145, 0.458975, -0.887686, -0.17745, -0.14445, 0.272939)
+
+[node name="PoleBoneConstraint" type="GodotIKConstraint" parent="EffectorFR"]
+bone_idx = 7
+script = ExtResource("1_as837")
+pole_direction = Vector3(0, 0, 1)
+forward = false
+metadata/_custom_type_script = "uid://df7j0ab7lmhoy"
+
+[node name="Ball" type="MeshInstance3D" parent="EffectorFR"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("SphereMesh_h2yge")
+surface_material_override/0 = SubResource("StandardMaterial3D_1bvp3")
+
+[node name="EffectorRL" type="GodotIKEffector" parent="."]
+bone_name = "rfoot.L"
+bone_idx = 10
+transform = Transform3D(0.980905, -0.00950776, 0.194255, -0.0203941, -0.998326, 0.0541199, 0.193414, -0.0570489, -0.979455, 0.191384, 0.268114, -0.551598)
+
+[node name="EffectorRR" type="GodotIKEffector" parent="."]
+bone_name = "rfoot.R"
+bone_idx = 12
+transform = Transform3D(0.980905, 0.00950776, -0.194255, 0.0203941, -0.998326, 0.0541199, -0.193414, -0.0570489, -0.979455, -0.191384, 0.268114, -0.742832)
