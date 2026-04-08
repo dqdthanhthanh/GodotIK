@@ -3,21 +3,23 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://s820a7rmfvss"
-path="res://.godot/imported/test_arm.glb-216de3ff9ad5c2426ec058b771038c23.scn"
+uid="uid://bt84g7h1nx2fg"
+path="res://.godot/imported/wolf.glb-089c87167032a0d6c21b941474cff879.scn"
 
 [deps]
 
-source_file="res://assets/test_arm.glb"
-dest_files=["res://.godot/imported/test_arm.glb-216de3ff9ad5c2426ec058b771038c23.scn"]
+source_file="res://rig_ik/assets/wolf.glb"
+dest_files=["res://.godot/imported/wolf.glb-089c87167032a0d6c21b941474cff879.scn"]
 
 [params]
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
@@ -32,6 +34,9 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
 _subresources={}
 gltf/naming_version=1
 gltf/embedded_image_handling=1
